@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Articles Practice for Kids</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Comic Neue', cursive;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .title {
+            font-size: 2.5rem;
+            color: #4a5568;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #718096;
+            margin-bottom: 20px;
+        }
+        
+        .score-board {
+            display: flex;
+            justify-content: space-between;
+            background: #f7fafc;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .score-item {
+            text-align: center;
+        }
+        
+        .score-label {
+            font-size: 0.9rem;
+            color: #718096;
+            margin-bottom: 5px;
+        }
+        
+        .score-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #4a5568;
+        }
+        
+        .question-card {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .question-number {
+            font-size: 1rem;
+            color: #8b4513;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .question-text {
+            font-size: 2rem;
+            color: #2d3748;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+        
+        .noun-highlight {
+            color: #e53e3e;
+            text-decoration: underline;
+            text-decoration-color: #e53e3e;
+        }
+        
+        .options {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .option-btn {
+            background: #4299e1;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Comic Neue', cursive;
+            min-width: 120px;
+        }
+        
+        .option-btn:hover {
+            background: #3182ce;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .option-btn:active {
+            transform: translateY(0);
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .feedback.show {
+            opacity: 1;
+        }
+        
+        .feedback.correct {
+            background: #c6f6d5;
+            color: #22543d;
+            border: 2px solid #68d391;
+        }
+        
+        .feedback.incorrect {
+            background: #fed7d7;
+            color: #742a2a;
+            border: 2px solid #fc8181;
+        }
+        
+        .next-btn {
+            background: #48bb78;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Comic Neue', cursive;
+            transition: all 0.3s ease;
+            order: 2; /* Always appears second */
+        }
+        
+        .next-btn:hover {
+            background: #38a169;
+            transform: translateY(-2px);
+        }
+        
+        .next-btn:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .voice-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .voice-btn {
+            background: #805ad5;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Comic Neue', cursive;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .voice-btn:hover {
+            background: #6b46c1;
+            transform: translateY(-2px);
+        }
+        
+        .voice-btn.active {
+            background: #553c9a;
+            box-shadow: 0 0 10px rgba(128, 90, 213, 0.5);
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            margin-top: 20px;
+            min-height: 120px; /* Reserve space for both buttons */
+        }
+        
+        .read-sentence-btn {
+            background: #ed8936;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Comic Neue', cursive;
+            display: none;
+            order: 1; /* Always appears first */
+        }
+        
+        .read-sentence-btn:hover {
+            background: #dd7724;
+            transform: translateY(-2px);
+        }
+        
+        .read-sentence-btn:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .celebration {
+            text-align: center;
+            font-size: 3rem;
+            margin: 20px 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .celebration.show {
+            opacity: 1;
+        }
+        
+        .progress-bar {
+            background: #e2e8f0;
+            height: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, #4299e1, #48bb78);
+            height: 100%;
+            border-radius: 5px;
+            transition: width 0.3s ease;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .question-text {
+                font-size: 1.5rem;
+            }
+            
+            .options {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .option-btn {
+                width: 100%;
+                max-width: 200px;
+            }
+        }
+  </style>
+
+  
+</head>
+<body>
+  <div class="container">
+        <div class="header">
+            <h1 class="title">🎯 Articles Practice</h1>
+            <p class="subtitle">Choose "a" or "an" for each word!</p>
+            
+            <div class="voice-controls">
+                <button class="voice-btn active" id="female-voice" onclick="setVoice('female')">
+                    👩 Woman Voice
+                </button>
+                <button class="voice-btn" id="male-voice" onclick="setVoice('male')">
+                    👨 Man Voice
+                </button>
+            </div>
+        </div>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <div class="score-label">Correct</div>
+                <div class="score-value" id="correct-score">0</div>
+            </div>
+            <div class="score-item">
+                <div class="score-label">Question</div>
+                <div class="score-value"><span id="current-question">1</span>/5</div>
+            </div>
+            <div class="score-item">
+                <div class="score-label">Total Score</div>
+                <div class="score-value" id="total-score">0</div>
+            </div>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill" style="width: 20%"></div>
+        </div>
+        
+        <div class="question-card">
+            <div class="question-number" id="question-number">Question 1 of 5</div>
+            <div class="question-text" id="question-text">
+                I see ___ <span class="noun-highlight" id="noun">apple</span>
+            </div>
+            
+            <div class="options">
+                <button class="option-btn" onclick="selectAnswer('a')">a</button>
+                <button class="option-btn" onclick="selectAnswer('an')">an</button>
+            </div>
+            
+            <div class="feedback" id="feedback"></div>
+            <div class="celebration" id="celebration"></div>
+            
+            <div class="action-buttons">
+                <button class="read-sentence-btn" id="read-sentence-btn" onclick="readFullSentence()">
+                    🔊 Read Full Sentence
+                </button>
+                
+                <button class="next-btn" id="next-btn" onclick="nextQuestion()" style="display: none;">
+                    Next Question 🎉
+                </button>
+            </div>
+        </div>
+    </div>
+
+  <script>
+    // 50 different sentence starters for maximum variety
+        const sentenceStarters = [
+            "I see ___",
+            "I found ___",
+            "I have ___",
+            "I want ___",
+            "I like ___",
+            "I need ___",
+            "I bought ___",
+            "I drew ___",
+            "I ate ___",
+            "I heard ___",
+            "I caught ___",
+            "I made ___",
+            "I lost ___",
+            "I picked ___",
+            "I chose ___",
+            "I built ___",
+            "I planted ___",
+            "I painted ___",
+            "I wore ___",
+            "I brought ___",
+            "I touched ___",
+            "I held ___",
+            "I carried ___",
+            "I dropped ___",
+            "I threw ___",
+            "I kicked ___",
+            "I pushed ___",
+            "I pulled ___",
+            "I opened ___",
+            "I closed ___",
+            "I cleaned ___",
+            "I washed ___",
+            "I fixed ___",
+            "I broke ___",
+            "I folded ___",
+            "I unfolded ___",
+            "I turned on ___",
+            "I turned off ___",
+            "I plugged in ___",
+            "I unplugged ___",
+            "I borrowed ___",
+            "I returned ___",
+            "I shared ___",
+            "I gave ___",
+            "I received ___",
+            "I collected ___",
+            "I gathered ___",
+            "I sorted ___",
+            "I organized ___",
+            "I discovered ___"
+        ];
+
+        // Question bank with 200 questions - 100 using "a" and 100 using "an"
+        const questionBank = [
+            // 100 questions using "an"
+            {noun: "apple", article: "an", vowelStart: true},
+            {noun: "elephant", article: "an", vowelStart: true},
+            {noun: "umbrella", article: "an", vowelStart: true},
+            {noun: "orange", article: "an", vowelStart: true},
+            {noun: "ice cream", article: "an", vowelStart: true},
+            {noun: "ant", article: "an", vowelStart: true},
+            {noun: "egg", article: "an", vowelStart: true},
+            {noun: "owl", article: "an", vowelStart: true},
+            {noun: "airplane", article: "an", vowelStart: true},
+            {noun: "octopus", article: "an", vowelStart: true},
+            {noun: "island", article: "an", vowelStart: true},
+            {noun: "igloo", article: "an", vowelStart: true},
+            {noun: "hour", article: "an", vowelStart: true}, // Special case: silent h
+            {noun: "honest", article: "an", vowelStart: true}, // Special case: silent h
+            {noun: "eraser", article: "an", vowelStart: true},
+            {noun: "envelope", article: "an", vowelStart: true},
+            {noun: "engine", article: "an", vowelStart: true},
+            {noun: "eagle", article: "an", vowelStart: true},
+            {noun: "earring", article: "an", vowelStart: true},
+            {noun: "avocado", article: "an", vowelStart: true},
+            {noun: "onion", article: "an", vowelStart: true},
+            {noun: "ocean", article: "an", vowelStart: true},
+            {noun: "iron", article: "an", vowelStart: true},
+            {noun: "easel", article: "an", vowelStart: true},
+            {noun: "opera", article: "an", vowelStart: true},
+            {noun: "earphone", article: "an", vowelStart: true},
+            {noun: "oven", article: "an", vowelStart: true},
+            {noun: "otter", article: "an", vowelStart: true},
+            {noun: "ostrich", article: "an", vowelStart: true},
+            {noun: "opal", article: "an", vowelStart: true},
+            {noun: "orbit", article: "an", vowelStart: true},
+            {noun: "orchid", article: "an", vowelStart: true},
+            {noun: "organ", article: "an", vowelStart: true},
+            {noun: "outfit", article: "an", vowelStart: true},
+            {noun: "outlet", article: "an", vowelStart: true},
+            {noun: "oval", article: "an", vowelStart: true},
+            {noun: "icicle", article: "an", vowelStart: true},
+            {noun: "idea", article: "an", vowelStart: true},
+            {noun: "idol", article: "an", vowelStart: true},
+            {noun: "image", article: "an", vowelStart: true},
+            {noun: "inch", article: "an", vowelStart: true},
+            {noun: "index", article: "an", vowelStart: true},
+            {noun: "infant", article: "an", vowelStart: true},
+            {noun: "injury", article: "an", vowelStart: true},
+            {noun: "insect", article: "an", vowelStart: true},
+            {noun: "instant", article: "an", vowelStart: true},
+            {noun: "invite", article: "an", vowelStart: true},
+            {noun: "iris", article: "an", vowelStart: true},
+            {noun: "item", article: "an", vowelStart: true},
+            {noun: "ivory", article: "an", vowelStart: true},
+            {noun: "acorn", article: "an", vowelStart: true},
+            {noun: "actor", article: "an", vowelStart: true},
+            {noun: "adult", article: "an", vowelStart: true},
+            {noun: "agent", article: "an", vowelStart: true},
+            {noun: "album", article: "an", vowelStart: true},
+            {noun: "alien", article: "an", vowelStart: true},
+            {noun: "alley", article: "an", vowelStart: true},
+            {noun: "altar", article: "an", vowelStart: true},
+            {noun: "amber", article: "an", vowelStart: true},
+            {noun: "angel", article: "an", vowelStart: true},
+            {noun: "angle", article: "an", vowelStart: true},
+            {noun: "ankle", article: "an", vowelStart: true},
+            {noun: "answer", article: "an", vowelStart: true},
+            {noun: "apron", article: "an", vowelStart: true},
+            {noun: "arcade", article: "an", vowelStart: true},
+            {noun: "archer", article: "an", vowelStart: true},
+            {noun: "arena", article: "an", vowelStart: true},
+            {noun: "armor", article: "an", vowelStart: true},
+            {noun: "arrow", article: "an", vowelStart: true},
+            {noun: "artist", article: "an", vowelStart: true},
+            {noun: "atlas", article: "an", vowelStart: true},
+            {noun: "author", article: "an", vowelStart: true},
+            {noun: "award", article: "an", vowelStart: true},
+            {noun: "echo", article: "an", vowelStart: true},
+            {noun: "editor", article: "an", vowelStart: true},
+            {noun: "effort", article: "an", vowelStart: true},
+            {noun: "elbow", article: "an", vowelStart: true},
+            {noun: "elder", article: "an", vowelStart: true},
+            {noun: "ember", article: "an", vowelStart: true},
+            {noun: "empire", artist: "an", vowelStart: true},
+            {noun: "ending", article: "an", vowelStart: true},
+            {noun: "energy", article: "an", vowelStart: true},
+            {noun: "entry", article: "an", vowelStart: true},
+            {noun: "error", article: "an", vowelStart: true},
+            {noun: "escape", article: "an", vowelStart: true},
+            {noun: "event", article: "an", vowelStart: true},
+            {noun: "exam", article: "an", vowelStart: true},
+            {noun: "exit", article: "an", vowelStart: true},
+            {noun: "expert", article: "an", vowelStart: true},
+            {noun: "uncle", article: "an", vowelStart: true},
+            {noun: "under", article: "an", vowelStart: true},
+            {noun: "union", article: "an", vowelStart: true},
+            {noun: "unit", article: "an", vowelStart: true},
+            {noun: "upper", article: "an", vowelStart: true},
+            {noun: "urban", article: "an", vowelStart: true},
+            {noun: "usage", article: "an", vowelStart: true},
+            {noun: "user", article: "an", vowelStart: true},
+            {noun: "usher", article: "an", vowelStart: true},
+            {noun: "usual", article: "an", vowelStart: true},
+            {noun: "ultra", article: "an", vowelStart: true},
+            {noun: "umpire", article: "an", vowelStart: true},
+            {noun: "update", article: "an", vowelStart: true},
+            {noun: "upward", article: "an", vowelStart: true},
+            {noun: "urgent", article: "an", vowelStart: true},
+            
+            // 100 questions using "a"
+            {noun: "cat", article: "a", vowelStart: false},
+            {noun: "dog", article: "a", vowelStart: false},
+            {noun: "ball", article: "a", vowelStart: false},
+            {noun: "book", article: "a", vowelStart: false},
+            {noun: "car", article: "a", vowelStart: false},
+            {noun: "house", article: "a", vowelStart: false},
+            {noun: "tree", article: "a", vowelStart: false},
+            {noun: "flower", article: "a", vowelStart: false},
+            {noun: "bird", article: "a", vowelStart: false},
+            {noun: "fish", article: "a", vowelStart: false},
+            {noun: "unicorn", article: "a", vowelStart: false}, // Special case: sounds like "you"
+            {noun: "uniform", article: "a", vowelStart: false}, // Special case: sounds like "you"
+            {noun: "table", article: "a", vowelStart: false},
+            {noun: "chair", article: "a", vowelStart: false},
+            {noun: "window", article: "a", vowelStart: false},
+            {noun: "door", article: "a", vowelStart: false},
+            {noun: "pencil", article: "a", vowelStart: false},
+            {noun: "rabbit", article: "a", vowelStart: false},
+            {noun: "monkey", article: "a", vowelStart: false},
+            {noun: "tiger", article: "a", vowelStart: false},
+            {noun: "lion", article: "a", vowelStart: false},
+            {noun: "zebra", article: "a", vowelStart: false},
+            {noun: "giraffe", article: "a", vowelStart: false},
+            {noun: "kangaroo", article: "a", vowelStart: false},
+            {noun: "panda", article: "a", vowelStart: false},
+            {noun: "koala", article: "a", vowelStart: false},
+            {noun: "whale", article: "a", vowelStart: false},
+            {noun: "shark", article: "a", vowelStart: false},
+            {noun: "dolphin", article: "a", vowelStart: false},
+            {noun: "turtle", article: "a", vowelStart: false},
+            {noun: "frog", article: "a", vowelStart: false},
+            {noun: "snake", article: "a", vowelStart: false},
+            {noun: "lizard", article: "a", vowelStart: false},
+            {noun: "spider", article: "a", vowelStart: false},
+            {noun: "butterfly", article: "a", vowelStart: false},
+            {noun: "bee", article: "a", vowelStart: false},
+            {noun: "ladybug", article: "a", vowelStart: false},
+            {noun: "cookie", article: "a", vowelStart: false},
+            {noun: "cake", article: "a", vowelStart: false},
+            {noun: "pizza", article: "a", vowelStart: false},
+            {noun: "sandwich", article: "a", vowelStart: false},
+            {noun: "banana", article: "a", vowelStart: false},
+            {noun: "grape", article: "a", vowelStart: false},
+            {noun: "strawberry", article: "a", vowelStart: false},
+            {noun: "watermelon", article: "a", vowelStart: false},
+            {noun: "pineapple", article: "a", vowelStart: false},
+            {noun: "cherry", article: "a", vowelStart: false},
+            {noun: "peach", article: "a", vowelStart: false},
+            {noun: "pear", article: "a", vowelStart: false},
+            {noun: "lemon", article: "a", vowelStart: false},
+            {noun: "lime", article: "a", vowelStart: false},
+            {noun: "mango", article: "a", vowelStart: false},
+            {noun: "kiwi", article: "a", vowelStart: false},
+            {noun: "potato", article: "a", vowelStart: false},
+            {noun: "carrot", article: "a", vowelStart: false},
+            {noun: "tomato", article: "a", vowelStart: false},
+            {noun: "cucumber", article: "a", vowelStart: false},
+            {noun: "lettuce", article: "a", vowelStart: false},
+            {noun: "broccoli", article: "a", vowelStart: false},
+            {noun: "corn", article: "a", vowelStart: false},
+            {noun: "pepper", article: "a", vowelStart: false},
+            {noun: "mushroom", article: "a", vowelStart: false},
+            {noun: "spinach", article: "a", vowelStart: false},
+            {noun: "shirt", article: "a", vowelStart: false},
+            {noun: "dress", article: "a", vowelStart: false},
+            {noun: "hat", article: "a", vowelStart: false},
+            {noun: "shoe", article: "a", vowelStart: false},
+            {noun: "sock", article: "a", vowelStart: false},
+            {noun: "jacket", article: "a", vowelStart: false},
+            {noun: "sweater", article: "a", vowelStart: false},
+            {noun: "scarf", article: "a", vowelStart: false},
+            {noun: "glove", article: "a", vowelStart: false},
+            {noun: "belt", article: "a", vowelStart: false},
+            {noun: "watch", article: "a", vowelStart: false},
+            {noun: "necklace", article: "a", vowelStart: false},
+            {noun: "ring", article: "a", vowelStart: false},
+            {noun: "bracelet", article: "a", vowelStart: false},
+            {noun: "backpack", article: "a", vowelStart: false},
+            {noun: "purse", article: "a", vowelStart: false},
+            {noun: "wallet", article: "a", vowelStart: false},
+            {noun: "key", article: "a", vowelStart: false},
+            {noun: "phone", article: "a", vowelStart: false},
+            {noun: "computer", article: "a", vowelStart: false},
+            {noun: "tablet", article: "a", vowelStart: false},
+            {noun: "camera", article: "a", vowelStart: false},
+            {noun: "television", article: "a", vowelStart: false},
+            {noun: "radio", article: "a", vowelStart: false},
+            {noun: "clock", article: "a", vowelStart: false},
+            {noun: "lamp", article: "a", vowelStart: false},
+            {noun: "mirror", article: "a", vowelStart: false},
+            {noun: "picture", article: "a", vowelStart: false},
+            {noun: "painting", article: "a", vowelStart: false},
+            {noun: "vase", article: "a", vowelStart: false},
+            {noun: "candle", article: "a", vowelStart: false},
+            {noun: "pillow", article: "a", vowelStart: false},
+            {noun: "blanket", article: "a", vowelStart: false},
+            {noun: "towel", article: "a", vowelStart: false},
+            {noun: "soap", article: "a", vowelStart: false},
+            {noun: "toothbrush", article: "a", vowelStart: false},
+            {noun: "comb", article: "a", vowelStart: false},
+            {noun: "brush", article: "a", vowelStart: false},
+            {noun: "scissors", article: "a", vowelStart: false},
+            {noun: "hammer", article: "a", vowelStart: false},
+            {noun: "screwdriver", article: "a", vowelStart: false},
+            {noun: "wrench", article: "a", vowelStart: false},
+            {noun: "nail", article: "a", vowelStart: false},
+            {noun: "screw", article: "a", vowelStart: false},
+            {noun: "rope", article: "a", vowelStart: false},
+            {noun: "ladder", article: "a", vowelStart: false}
+        ];
+
+        let currentQuestions = [];
+        let currentQuestionIndex = 0;
+        let correctAnswers = 0;
+        let totalScore = 0;
+        let answered = false;
+        let selectedVoice = 'female';
+        let speechSynthesis = window.speechSynthesis;
+        let voices = [];
+
+        // Initialize speech synthesis
+        function initSpeech() {
+            voices = speechSynthesis.getVoices();
+            
+            // If voices aren't loaded yet, wait for them
+            if (voices.length === 0) {
+                speechSynthesis.addEventListener('voiceschanged', () => {
+                    voices = speechSynthesis.getVoices();
+                });
+            }
+        }
+
+        // Get appropriate voice based on selection
+        function getVoice() {
+            if (voices.length === 0) {
+                voices = speechSynthesis.getVoices();
+            }
+            
+            let preferredVoice = null;
+            
+            if (selectedVoice === 'female') {
+                // Look for female voices
+                preferredVoice = voices.find(voice => 
+                    voice.name.toLowerCase().includes('female') ||
+                    voice.name.toLowerCase().includes('woman') ||
+                    voice.name.toLowerCase().includes('samantha') ||
+                    voice.name.toLowerCase().includes('karen') ||
+                    voice.name.toLowerCase().includes('susan') ||
+                    voice.name.toLowerCase().includes('victoria') ||
+                    voice.name.toLowerCase().includes('zira') ||
+                    voice.name.toLowerCase().includes('hazel')
+                );
+            } else {
+                // Look for male voices
+                preferredVoice = voices.find(voice => 
+                    voice.name.toLowerCase().includes('male') ||
+                    voice.name.toLowerCase().includes('man') ||
+                    voice.name.toLowerCase().includes('david') ||
+                    voice.name.toLowerCase().includes('mark') ||
+                    voice.name.toLowerCase().includes('daniel') ||
+                    voice.name.toLowerCase().includes('alex') ||
+                    voice.name.toLowerCase().includes('tom')
+                );
+            }
+            
+            // Fallback to default voice if specific gender not found
+            return preferredVoice || voices[0] || null;
+        }
+
+        // Speak text with selected voice
+        function speak(text) {
+            // Stop any ongoing speech
+            speechSynthesis.cancel();
+            
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                const voice = getVoice();
+                
+                if (voice) {
+                    utterance.voice = voice;
+                }
+                
+                // Set speech parameters for child-friendly speech
+                utterance.rate = 0.8; // Slightly slower for kids
+                utterance.pitch = selectedVoice === 'female' ? 1.2 : 0.9;
+                utterance.volume = 1;
+                
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Set voice preference
+        function setVoice(voiceType) {
+            selectedVoice = voiceType;
+            
+            // Update button states
+            document.getElementById('female-voice').classList.remove('active');
+            document.getElementById('male-voice').classList.remove('active');
+            document.getElementById(voiceType + '-voice').classList.add('active');
+        }
+
+        // Get appropriate sentence starters for a given noun
+        function getAppropriateStarters(noun) {
+            // Food items
+            const foodItems = ['apple', 'orange', 'banana', 'cookie', 'cake', 'pizza', 'sandwich', 'grape', 'strawberry', 'watermelon', 'pineapple', 'cherry', 'peach', 'pear', 'lemon', 'lime', 'mango', 'kiwi', 'avocado', 'onion', 'potato', 'carrot', 'tomato', 'cucumber', 'lettuce', 'broccoli', 'corn', 'pepper', 'mushroom', 'spinach', 'ice cream'];
+            
+            // Pet animals (realistic to have)
+            const petAnimals = ['cat', 'dog', 'bird', 'fish', 'rabbit', 'turtle', 'frog'];
+            
+            // Wild animals (see at zoo, in books, etc.)
+            const wildAnimals = ['elephant', 'monkey', 'tiger', 'lion', 'zebra', 'giraffe', 'kangaroo', 'panda', 'koala', 'whale', 'shark', 'dolphin', 'snake', 'lizard', 'eagle', 'owl', 'octopus'];
+            
+            // Small creatures (realistic to see/find)
+            const smallCreatures = ['spider', 'butterfly', 'bee', 'ladybug', 'ant'];
+            
+            // Clothing items
+            const clothing = ['shirt', 'dress', 'hat', 'shoe', 'sock', 'jacket', 'sweater', 'scarf', 'glove', 'belt', 'uniform'];
+            
+            // Art supplies
+            const artSupplies = ['crayon', 'marker', 'paint', 'brush', 'canvas', 'easel', 'palette'];
+            
+            // Vehicles
+            const vehicles = ['car', 'bicycle', 'motorcycle', 'truck', 'bus', 'train', 'boat', 'ship', 'helicopter', 'rocket', 'airplane'];
+            
+            // Tools
+            const tools = ['hammer', 'screwdriver', 'wrench', 'nail', 'screw', 'rope', 'ladder', 'bucket', 'shovel', 'rake', 'hose'];
+            
+            // Toys/Objects you can hold
+            const toys = ['ball', 'book', 'pencil', 'eraser', 'key', 'phone', 'camera', 'watch', 'ring', 'necklace', 'bracelet'];
+            
+            // Things you can hear
+            const soundItems = ['song', 'melody', 'rhythm', 'beat', 'drum', 'guitar', 'piano', 'violin', 'flute', 'trumpet', 'saxophone', 'harmonica', 'microphone', 'speaker', 'headphone', 'earphone'];
+            
+            // Time-related words that need special handling
+            const timeWords = ['hour'];
+            
+            // Abstract concepts that need special handling
+            const abstractWords = ['honest'];
+            
+            if (timeWords.includes(noun)) {
+                return ['I waited ___', 'I spent ___', 'I need ___', 'It took ___', 'After ___'];
+            } else if (abstractWords.includes(noun)) {
+                return ['I met ___ person', 'I know ___ person', 'I like ___ person', 'I found ___ person', 'I am ___ person'];
+            } else if (foodItems.includes(noun)) {
+                return ['I ate ___', 'I want ___', 'I like ___', 'I bought ___', 'I found ___', 'I have ___'];
+            } else if (petAnimals.includes(noun)) {
+                return ['I have ___', 'I saw ___', 'I like ___', 'I pet ___', 'I fed ___', 'I found ___'];
+            } else if (wildAnimals.includes(noun)) {
+                return ['I saw ___', 'I drew ___', 'I like ___', 'I read about ___', 'I watched ___', 'There was ___'];
+            } else if (smallCreatures.includes(noun)) {
+                return ['I saw ___', 'I found ___', 'I watched ___', 'There was ___', 'I caught ___'];
+            } else if (clothing.includes(noun)) {
+                return ['I wore ___', 'I bought ___', 'I found ___', 'I have ___', 'I like ___', 'I need ___'];
+            } else if (artSupplies.includes(noun)) {
+                return ['I used ___', 'I found ___', 'I bought ___', 'I have ___', 'I need ___', 'I picked ___'];
+            } else if (vehicles.includes(noun)) {
+                return ['I saw ___', 'I rode ___', 'I built ___', 'I like ___', 'I want ___', 'There was ___'];
+            } else if (tools.includes(noun)) {
+                return ['I used ___', 'I found ___', 'I bought ___', 'I have ___', 'I need ___', 'I picked ___'];
+            } else if (toys.includes(noun)) {
+                return ['I found ___', 'I have ___', 'I lost ___', 'I picked ___', 'I bought ___', 'I like ___'];
+            } else if (soundItems.includes(noun)) {
+                return ['I heard ___', 'I like ___', 'I played ___', 'I have ___', 'I want ___', 'I bought ___'];
+            } else {
+                // Default starters for other items
+                return ['I saw ___', 'I found ___', 'I have ___', 'I like ___', 'I bought ___', 'I need ___'];
+            }
+        }
+
+        // Read the full sentence
+        function readFullSentence() {
+            if (!answered) return;
+            
+            const question = currentQuestions[currentQuestionIndex];
+            const fullSentence = question.sentenceStarter.replace('___', `${question.article} ${question.noun}`);
+            speak(fullSentence);
+        }
+
+        // Initialize the game
+        function initGame() {
+            // Reset all game variables to starting state
+            currentQuestionIndex = 0;
+            correctAnswers = 0;
+            totalScore = 0;
+            answered = false;
+            
+            // Separate questions by article type
+            const aQuestions = questionBank.filter(q => q.article === 'a');
+            const anQuestions = questionBank.filter(q => q.article === 'an');
+            
+            // Shuffle both arrays
+            const shuffledA = [...aQuestions].sort(() => 0.5 - Math.random());
+            const shuffledAn = [...anQuestions].sort(() => 0.5 - Math.random());
+            
+            currentQuestions = [];
+            const usedNouns = new Set();
+            
+            // Ensure at least 1 "an" question and at least 1 "a" question
+            // First, add at least one "an" question
+            for (let question of shuffledAn) {
+                if (!usedNouns.has(question.noun) && currentQuestions.length < 5) {
+                    currentQuestions.push(question);
+                    usedNouns.add(question.noun);
+                    break; // Only need one to start
+                }
+            }
+            
+            // Then add at least one "a" question
+            for (let question of shuffledA) {
+                if (!usedNouns.has(question.noun) && currentQuestions.length < 5) {
+                    currentQuestions.push(question);
+                    usedNouns.add(question.noun);
+                    break; // Only need one to start
+                }
+            }
+            
+            // Fill the remaining slots with any available questions
+            const allShuffled = [...shuffledA, ...shuffledAn].sort(() => 0.5 - Math.random());
+            for (let question of allShuffled) {
+                if (!usedNouns.has(question.noun) && currentQuestions.length < 5) {
+                    currentQuestions.push(question);
+                    usedNouns.add(question.noun);
+                }
+            }
+            
+            // Shuffle the final selection so "an" and "a" questions are mixed
+            currentQuestions.sort(() => 0.5 - Math.random());
+            
+            // Reset the next button to normal state
+            const nextBtn = document.getElementById('next-btn');
+            nextBtn.textContent = 'Next Question 🎉';
+            nextBtn.onclick = nextQuestion;
+            
+            displayQuestion();
+            updateScoreboard();
+            updateProgress();
+        }
+
+        function displayQuestion() {
+            const question = currentQuestions[currentQuestionIndex];
+            
+            // Pick an appropriate sentence starter based on the noun
+            const appropriateStarters = getAppropriateStarters(question.noun);
+            const randomStarter = appropriateStarters[Math.floor(Math.random() * appropriateStarters.length)];
+            question.sentenceStarter = randomStarter; // Store it for later use
+            
+            document.getElementById('question-number').textContent = `Question ${currentQuestionIndex + 1} of 5`;
+            document.getElementById('current-question').textContent = currentQuestionIndex + 1;
+            
+            // Update the question text with the random starter and proper underline placement
+            document.getElementById('question-text').innerHTML = `${randomStarter.replace('___', '___ <span class="noun-highlight">' + question.noun + '</span>')}`;
+            
+            // Reset UI
+            document.getElementById('feedback').classList.remove('show', 'correct', 'incorrect');
+            document.getElementById('celebration').classList.remove('show');
+            document.getElementById('next-btn').style.display = 'none';
+            document.getElementById('read-sentence-btn').style.display = 'none';
+            
+            // Enable option buttons
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach(btn => {
+                btn.disabled = false;
+                btn.style.opacity = '1';
+            });
+            
+            answered = false;
+        }
+
+        function selectAnswer(selectedArticle) {
+            if (answered) return;
+            
+            answered = true;
+            const question = currentQuestions[currentQuestionIndex];
+            const isCorrect = selectedArticle === question.article;
+            
+            // Disable buttons
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                if (btn.textContent !== selectedArticle) {
+                    btn.style.opacity = '0.5';
+                }
+            });
+            
+            // Show feedback
+            const feedback = document.getElementById('feedback');
+            const celebration = document.getElementById('celebration');
+            
+            if (isCorrect) {
+                correctAnswers++;
+                totalScore += 20;
+                const correctSentence = question.sentenceStarter.replace('___', `${question.article} ${question.noun}`);
+                feedback.textContent = `🎉 Correct! "${correctSentence}"`;
+                feedback.classList.add('show', 'correct');
+                celebration.textContent = '🌟 Great job! 🌟';
+                celebration.classList.add('show');
+            } else {
+                const correctSentence = question.sentenceStarter.replace('___', `${question.article} ${question.noun}`);
+                feedback.textContent = `❌ Oops! It should be "${correctSentence}"`;
+                feedback.classList.add('show', 'incorrect');
+                celebration.textContent = '💪 Try again next time! 💪';
+                celebration.classList.add('show');
+            }
+            
+            updateScoreboard();
+            
+            // Show both buttons immediately after answering
+            document.getElementById('read-sentence-btn').style.display = 'inline-block';
+            
+            setTimeout(() => {
+                if (currentQuestionIndex < 4) {
+                    document.getElementById('next-btn').style.display = 'inline-block';
+                } else {
+                    showFinalResults();
+                }
+            }, 1500);
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            updateProgress();
+            displayQuestion();
+        }
+
+        function updateScoreboard() {
+            document.getElementById('correct-score').textContent = correctAnswers;
+            document.getElementById('total-score').textContent = totalScore;
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / 5) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+        }
+
+        function showFinalResults() {
+            const feedback = document.getElementById('feedback');
+            const celebration = document.getElementById('celebration');
+            const nextBtn = document.getElementById('next-btn');
+            
+            let message = '';
+            let celebrationEmoji = '';
+            
+            if (correctAnswers === 5) {
+                message = '🏆 Perfect! You got all 5 correct! You\'re an articles expert! 🏆';
+                celebrationEmoji = '🎊 AMAZING! 🎊';
+            } else if (correctAnswers >= 3) {
+                message = `🌟 Great job! You got ${correctAnswers} out of 5 correct! Keep practicing! 🌟`;
+                celebrationEmoji = '👏 Well done! 👏';
+            } else {
+                message = `💪 You got ${correctAnswers} out of 5 correct. Practice makes perfect! 💪`;
+                celebrationEmoji = '🌈 Keep trying! 🌈';
+            }
+            
+            feedback.textContent = message;
+            feedback.classList.remove('correct', 'incorrect');
+            feedback.classList.add('show', 'correct');
+            
+            celebration.textContent = celebrationEmoji;
+            celebration.classList.add('show');
+            
+            nextBtn.textContent = 'Play Again! 🎮';
+            nextBtn.style.display = 'inline-block';
+            nextBtn.onclick = initGame;
+        }
+
+        // Initialize speech and start the game
+        initSpeech();
+        initGame();
+        
+        // Handle user interaction requirement for mobile devices
+        document.addEventListener('click', function() {
+            // This ensures speech synthesis is enabled after user interaction
+            if (speechSynthesis.paused) {
+                speechSynthesis.resume();
+            }
+        }, { once: true });
+
+(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'979941e7b05fce61',t:'MTc1Njk0NDU1OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();
+  </script>
+</body>
+</html>
