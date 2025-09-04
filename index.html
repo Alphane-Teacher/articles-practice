@@ -373,278 +373,90 @@
 
   <script>
     // 50 different sentence starters for maximum variety
-        const sentenceStarters = [
-            "I see ___",
-            "I found ___",
-            "I have ___",
-            "I want ___",
-            "I like ___",
-            "I need ___",
-            "I bought ___",
-            "I drew ___",
-            "I ate ___",
-            "I heard ___",
-            "I caught ___",
-            "I made ___",
-            "I lost ___",
-            "I picked ___",
-            "I chose ___",
-            "I built ___",
-            "I planted ___",
-            "I painted ___",
-            "I wore ___",
-            "I brought ___",
-            "I touched ___",
-            "I held ___",
-            "I carried ___",
-            "I dropped ___",
-            "I threw ___",
-            "I kicked ___",
-            "I pushed ___",
-            "I pulled ___",
-            "I opened ___",
-            "I closed ___",
-            "I cleaned ___",
-            "I washed ___",
-            "I fixed ___",
-            "I broke ___",
-            "I folded ___",
-            "I unfolded ___",
-            "I turned on ___",
-            "I turned off ___",
-            "I plugged in ___",
-            "I unplugged ___",
-            "I borrowed ___",
-            "I returned ___",
-            "I shared ___",
-            "I gave ___",
-            "I received ___",
-            "I collected ___",
-            "I gathered ___",
-            "I sorted ___",
-            "I organized ___",
-            "I discovered ___"
-        ];
+// ===== 50 sentence starters =====
+// ===== 语义类别 + 对应 nouns =====
+const nounsByCategory = {
+    animals: [
+        "cat","dog","tiger","lion","zebra","giraffe","kangaroo","panda","koala",
+        "whale","shark","dolphin","turtle","frog","snake","lizard","spider",
+        "butterfly","bee","ladybug","monkey","rabbit"
+    ],
+    food: [
+        "apple","banana","grape","strawberry","watermelon","pineapple","cherry",
+        "peach","pear","lemon","lime","mango","potato","carrot","tomato","cucumber",
+        "lettuce","broccoli","corn","pepper","mushroom","spinach","cookie","cake",
+        "pizza","sandwich","ice cream"
+    ],
+    buyableObjects: [
+        "phone","computer","tablet","camera","television","radio","clock","lamp",
+        "mirror","picture","painting","vase","candle","pillow","blanket","towel",
+        "soap","toothbrush","comb","brush","scissors","wallet","backpack","purse",
+        "key","shirt","dress","hat","shoe","sock","jacket","sweater","scarf","glove",
+        "belt","watch","necklace","ring","bracelet"
+    ],
+    toolsObjects: [
+        "hammer","screwdriver","wrench","nail","screw","rope","ladder","oven",
+        "ladder","door","window","table","chair"
+    ],
+    abstract: [
+        "idea","instant","event","effort","exam","error","entry","ending","energy",
+        "invite","item","usage","image","index","insect","injury","ultra"
+    ],
+    people: [
+        "uncle","agent","actor","adult","author","editor","alien"
+    ],
+    plants: [
+        "tree","flower","orchid","broccoli","carrot","lettuce"
+    ]
+};
 
-        // Question bank with 200 questions - 100 using "a" and 100 using "an"
-        const questionBank = [
-            // 100 questions using "an"
-            {noun: "apple", article: "an", vowelStart: true},
-            {noun: "elephant", article: "an", vowelStart: true},
-            {noun: "umbrella", article: "an", vowelStart: true},
-            {noun: "orange", article: "an", vowelStart: true},
-            {noun: "ice cream", article: "an", vowelStart: true},
-            {noun: "ant", article: "an", vowelStart: true},
-            {noun: "egg", article: "an", vowelStart: true},
-            {noun: "owl", article: "an", vowelStart: true},
-            {noun: "airplane", article: "an", vowelStart: true},
-            {noun: "octopus", article: "an", vowelStart: true},
-            {noun: "island", article: "an", vowelStart: true},
-            {noun: "igloo", article: "an", vowelStart: true},
-            {noun: "hour", article: "an", vowelStart: true}, // Special case: silent h
-            {noun: "honest", article: "an", vowelStart: true}, // Special case: silent h
-            {noun: "eraser", article: "an", vowelStart: true},
-            {noun: "envelope", article: "an", vowelStart: true},
-            {noun: "engine", article: "an", vowelStart: true},
-            {noun: "eagle", article: "an", vowelStart: true},
-            {noun: "earring", article: "an", vowelStart: true},
-            {noun: "avocado", article: "an", vowelStart: true},
-            {noun: "onion", article: "an", vowelStart: true},
-            {noun: "ocean", article: "an", vowelStart: true},
-            {noun: "iron", article: "an", vowelStart: true},
-            {noun: "easel", article: "an", vowelStart: true},
-            {noun: "opera", article: "an", vowelStart: true},
-            {noun: "earphone", article: "an", vowelStart: true},
-            {noun: "oven", article: "an", vowelStart: true},
-            {noun: "otter", article: "an", vowelStart: true},
-            {noun: "ostrich", article: "an", vowelStart: true},
-            {noun: "opal", article: "an", vowelStart: true},
-            {noun: "orbit", article: "an", vowelStart: true},
-            {noun: "orchid", article: "an", vowelStart: true},
-            {noun: "organ", article: "an", vowelStart: true},
-            {noun: "outfit", article: "an", vowelStart: true},
-            {noun: "outlet", article: "an", vowelStart: true},
-            {noun: "oval", article: "an", vowelStart: true},
-            {noun: "icicle", article: "an", vowelStart: true},
-            {noun: "idea", article: "an", vowelStart: true},
-            {noun: "idol", article: "an", vowelStart: true},
-            {noun: "image", article: "an", vowelStart: true},
-            {noun: "inch", article: "an", vowelStart: true},
-            {noun: "index", article: "an", vowelStart: true},
-            {noun: "infant", article: "an", vowelStart: true},
-            {noun: "injury", article: "an", vowelStart: true},
-            {noun: "insect", article: "an", vowelStart: true},
-            {noun: "instant", article: "an", vowelStart: true},
-            {noun: "invite", article: "an", vowelStart: true},
-            {noun: "iris", article: "an", vowelStart: true},
-            {noun: "item", article: "an", vowelStart: true},
-            {noun: "ivory", article: "an", vowelStart: true},
-            {noun: "acorn", article: "an", vowelStart: true},
-            {noun: "actor", article: "an", vowelStart: true},
-            {noun: "adult", article: "an", vowelStart: true},
-            {noun: "agent", article: "an", vowelStart: true},
-            {noun: "album", article: "an", vowelStart: true},
-            {noun: "alien", article: "an", vowelStart: true},
-            {noun: "alley", article: "an", vowelStart: true},
-            {noun: "altar", article: "an", vowelStart: true},
-            {noun: "amber", article: "an", vowelStart: true},
-            {noun: "angel", article: "an", vowelStart: true},
-            {noun: "angle", article: "an", vowelStart: true},
-            {noun: "ankle", article: "an", vowelStart: true},
-            {noun: "answer", article: "an", vowelStart: true},
-            {noun: "apron", article: "an", vowelStart: true},
-            {noun: "arcade", article: "an", vowelStart: true},
-            {noun: "archer", article: "an", vowelStart: true},
-            {noun: "arena", article: "an", vowelStart: true},
-            {noun: "armor", article: "an", vowelStart: true},
-            {noun: "arrow", article: "an", vowelStart: true},
-            {noun: "artist", article: "an", vowelStart: true},
-            {noun: "atlas", article: "an", vowelStart: true},
-            {noun: "author", article: "an", vowelStart: true},
-            {noun: "award", article: "an", vowelStart: true},
-            {noun: "echo", article: "an", vowelStart: true},
-            {noun: "editor", article: "an", vowelStart: true},
-            {noun: "effort", article: "an", vowelStart: true},
-            {noun: "elbow", article: "an", vowelStart: true},
-            {noun: "elder", article: "an", vowelStart: true},
-            {noun: "ember", article: "an", vowelStart: true},
-            {noun: "empire", artist: "an", vowelStart: true},
-            {noun: "ending", article: "an", vowelStart: true},
-            {noun: "energy", article: "an", vowelStart: true},
-            {noun: "entry", article: "an", vowelStart: true},
-            {noun: "error", article: "an", vowelStart: true},
-            {noun: "escape", article: "an", vowelStart: true},
-            {noun: "event", article: "an", vowelStart: true},
-            {noun: "exam", article: "an", vowelStart: true},
-            {noun: "exit", article: "an", vowelStart: true},
-            {noun: "expert", article: "an", vowelStart: true},
-            {noun: "uncle", article: "an", vowelStart: true},
-            {noun: "under", article: "an", vowelStart: true},
-            {noun: "union", article: "an", vowelStart: true},
-            {noun: "unit", article: "an", vowelStart: true},
-            {noun: "upper", article: "an", vowelStart: true},
-            {noun: "urban", article: "an", vowelStart: true},
-            {noun: "usage", article: "an", vowelStart: true},
-            {noun: "user", article: "an", vowelStart: true},
-            {noun: "usher", article: "an", vowelStart: true},
-            {noun: "usual", article: "an", vowelStart: true},
-            {noun: "ultra", article: "an", vowelStart: true},
-            {noun: "umpire", article: "an", vowelStart: true},
-            {noun: "update", article: "an", vowelStart: true},
-            {noun: "upward", article: "an", vowelStart: true},
-            {noun: "urgent", article: "an", vowelStart: true},
-            
-            // 100 questions using "a"
-            {noun: "cat", article: "a", vowelStart: false},
-            {noun: "dog", article: "a", vowelStart: false},
-            {noun: "ball", article: "a", vowelStart: false},
-            {noun: "book", article: "a", vowelStart: false},
-            {noun: "car", article: "a", vowelStart: false},
-            {noun: "house", article: "a", vowelStart: false},
-            {noun: "tree", article: "a", vowelStart: false},
-            {noun: "flower", article: "a", vowelStart: false},
-            {noun: "bird", article: "a", vowelStart: false},
-            {noun: "fish", article: "a", vowelStart: false},
-            {noun: "unicorn", article: "a", vowelStart: false}, // Special case: sounds like "you"
-            {noun: "uniform", article: "a", vowelStart: false}, // Special case: sounds like "you"
-            {noun: "table", article: "a", vowelStart: false},
-            {noun: "chair", article: "a", vowelStart: false},
-            {noun: "window", article: "a", vowelStart: false},
-            {noun: "door", article: "a", vowelStart: false},
-            {noun: "pencil", article: "a", vowelStart: false},
-            {noun: "rabbit", article: "a", vowelStart: false},
-            {noun: "monkey", article: "a", vowelStart: false},
-            {noun: "tiger", article: "a", vowelStart: false},
-            {noun: "lion", article: "a", vowelStart: false},
-            {noun: "zebra", article: "a", vowelStart: false},
-            {noun: "giraffe", article: "a", vowelStart: false},
-            {noun: "kangaroo", article: "a", vowelStart: false},
-            {noun: "panda", article: "a", vowelStart: false},
-            {noun: "koala", article: "a", vowelStart: false},
-            {noun: "whale", article: "a", vowelStart: false},
-            {noun: "shark", article: "a", vowelStart: false},
-            {noun: "dolphin", article: "a", vowelStart: false},
-            {noun: "turtle", article: "a", vowelStart: false},
-            {noun: "frog", article: "a", vowelStart: false},
-            {noun: "snake", article: "a", vowelStart: false},
-            {noun: "lizard", article: "a", vowelStart: false},
-            {noun: "spider", article: "a", vowelStart: false},
-            {noun: "butterfly", article: "a", vowelStart: false},
-            {noun: "bee", article: "a", vowelStart: false},
-            {noun: "ladybug", article: "a", vowelStart: false},
-            {noun: "cookie", article: "a", vowelStart: false},
-            {noun: "cake", article: "a", vowelStart: false},
-            {noun: "pizza", article: "a", vowelStart: false},
-            {noun: "sandwich", article: "a", vowelStart: false},
-            {noun: "banana", article: "a", vowelStart: false},
-            {noun: "grape", article: "a", vowelStart: false},
-            {noun: "strawberry", article: "a", vowelStart: false},
-            {noun: "watermelon", article: "a", vowelStart: false},
-            {noun: "pineapple", article: "a", vowelStart: false},
-            {noun: "cherry", article: "a", vowelStart: false},
-            {noun: "peach", article: "a", vowelStart: false},
-            {noun: "pear", article: "a", vowelStart: false},
-            {noun: "lemon", article: "a", vowelStart: false},
-            {noun: "lime", article: "a", vowelStart: false},
-            {noun: "mango", article: "a", vowelStart: false},
-            {noun: "kiwi", article: "a", vowelStart: false},
-            {noun: "potato", article: "a", vowelStart: false},
-            {noun: "carrot", article: "a", vowelStart: false},
-            {noun: "tomato", article: "a", vowelStart: false},
-            {noun: "cucumber", article: "a", vowelStart: false},
-            {noun: "lettuce", article: "a", vowelStart: false},
-            {noun: "broccoli", article: "a", vowelStart: false},
-            {noun: "corn", article: "a", vowelStart: false},
-            {noun: "pepper", article: "a", vowelStart: false},
-            {noun: "mushroom", article: "a", vowelStart: false},
-            {noun: "spinach", article: "a", vowelStart: false},
-            {noun: "shirt", article: "a", vowelStart: false},
-            {noun: "dress", article: "a", vowelStart: false},
-            {noun: "hat", article: "a", vowelStart: false},
-            {noun: "shoe", article: "a", vowelStart: false},
-            {noun: "sock", article: "a", vowelStart: false},
-            {noun: "jacket", article: "a", vowelStart: false},
-            {noun: "sweater", article: "a", vowelStart: false},
-            {noun: "scarf", article: "a", vowelStart: false},
-            {noun: "glove", article: "a", vowelStart: false},
-            {noun: "belt", article: "a", vowelStart: false},
-            {noun: "watch", article: "a", vowelStart: false},
-            {noun: "necklace", article: "a", vowelStart: false},
-            {noun: "ring", article: "a", vowelStart: false},
-            {noun: "bracelet", article: "a", vowelStart: false},
-            {noun: "backpack", article: "a", vowelStart: false},
-            {noun: "purse", article: "a", vowelStart: false},
-            {noun: "wallet", article: "a", vowelStart: false},
-            {noun: "key", article: "a", vowelStart: false},
-            {noun: "phone", article: "a", vowelStart: false},
-            {noun: "computer", article: "a", vowelStart: false},
-            {noun: "tablet", article: "a", vowelStart: false},
-            {noun: "camera", article: "a", vowelStart: false},
-            {noun: "television", article: "a", vowelStart: false},
-            {noun: "radio", article: "a", vowelStart: false},
-            {noun: "clock", article: "a", vowelStart: false},
-            {noun: "lamp", article: "a", vowelStart: false},
-            {noun: "mirror", article: "a", vowelStart: false},
-            {noun: "picture", article: "a", vowelStart: false},
-            {noun: "painting", article: "a", vowelStart: false},
-            {noun: "vase", article: "a", vowelStart: false},
-            {noun: "candle", article: "a", vowelStart: false},
-            {noun: "pillow", article: "a", vowelStart: false},
-            {noun: "blanket", article: "a", vowelStart: false},
-            {noun: "towel", article: "a", vowelStart: false},
-            {noun: "soap", article: "a", vowelStart: false},
-            {noun: "toothbrush", article: "a", vowelStart: false},
-            {noun: "comb", article: "a", vowelStart: false},
-            {noun: "brush", article: "a", vowelStart: false},
-            {noun: "scissors", article: "a", vowelStart: false},
-            {noun: "hammer", article: "a", vowelStart: false},
-            {noun: "screwdriver", article: "a", vowelStart: false},
-            {noun: "wrench", article: "a", vowelStart: false},
-            {noun: "nail", article: "a", vowelStart: false},
-            {noun: "screw", article: "a", vowelStart: false},
-            {noun: "rope", article: "a", vowelStart: false},
-            {noun: "ladder", article: "a", vowelStart: false}
-        ];
+// ===== 语义类别 + 对应 starters =====
+const startersByCategory = {
+    animals: [
+        "I saw ___","I fed ___","I caught ___","I held ___","I touched ___"
+    ],
+    food: [
+        "I ate ___","I made ___","I bought ___","I like ___","I want ___"
+    ],
+    buyableObjects: [
+        "I bought ___","I found ___","I have ___","I need ___","I gave ___"
+    ],
+    toolsObjects: [
+        "I fixed ___","I cleaned ___","I opened ___","I closed ___","I turned on ___"
+    ],
+    abstract: [
+        "I discovered ___","I noticed ___","I learned ___","I heard ___","I observed ___"
+    ],
+    people: [
+        "I met ___","I helped ___","I spoke to ___","I saw ___","I called ___"
+    ],
+    plants: [
+        "I planted ___","I watered ___","I picked ___","I grew ___","I trimmed ___"
+    ]
+};
+
+// ===== 生成 questionBank =====
+const questionBank = [];
+
+for (const [category, nouns] of Object.entries(nounsByCategory)) {
+    const starters = startersByCategory[category];
+    nouns.forEach(noun => {
+        const vowelStart = /^[aeiou]/i.test(noun);
+        const article = vowelStart ? "an" : "a";
+        questionBank.push({ noun, vowelStart, article, starters });
+    });
+}
+
+// ===== 使用示例 =====
+// 生成句子时：
+function generateSentence() {
+    const q = questionBank[Math.floor(Math.random() * questionBank.length)];
+    const starter = q.starters[Math.floor(Math.random() * q.starters.length)];
+    return starter.replace("___", `${q.article} ${q.noun}`);
+}
+
+// console.log(generateSentence());
+// ===== 现在 questionBank 可以直接使用 =====
 
         let currentQuestions = [];
         let currentQuestionIndex = 0;
